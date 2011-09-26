@@ -1,6 +1,7 @@
 class HomeAction < Cramp::Action
   def start
-    render "Hello World!"
+    render "Pieter Michels"
+
     finish
   end
 end
