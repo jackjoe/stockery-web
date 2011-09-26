@@ -30,5 +30,4 @@ end
 
 Bundler.require(:default, StockeryArduino::Application.env)
 
-# Preload application classes
 Dir['./app/**/*.rb'].each {|f| require f}
