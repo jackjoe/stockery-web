@@ -1,4 +1,6 @@
 require './application'
+require 'rack/failtale'
+
 StockeryArduino::Application.initialize!
 
 # Development middlewares
