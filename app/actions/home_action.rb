@@ -1,6 +1,12 @@
 class HomeAction < Cramp::Action
   def start
-    render "Pieter Michels"
+
+    render Slim::Template.new('app/views/home.slim').render
+
+    # port = Portfolio.new(:name => 'pieter')
+    # port.stocks.build(:symbol => 'AAPL', :name => 'Apple')
+    # 
+    # port.save!
 
     finish
   end

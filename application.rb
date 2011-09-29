@@ -23,6 +23,11 @@ module StockeryArduino
 
     # Initialize the application
     def self.initialize!
+      conn = Mongo::Connection.new('staff.mongohq.com', 10052)
+      auth = conn.add_auth('stockery-arduino', 'user', 'user')
+
+      MongoMapper.connection = conn
+      MongoMapper.database = 'stockery-arduino'
     end
 
   end

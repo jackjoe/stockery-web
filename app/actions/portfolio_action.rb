@@ -1,19 +1,23 @@
 class PortfolioAction < Cramp::Action
 
   def start
-    symbols = StockeryArduino::Application.portfolios[params[:id]]
-    result = {:avg => 0, :symbols => []}
+    stocks = Portfolio.where(:name => params[:id]).stocks
 
-    unless symbols.nil?
+    result = {:avg => 0, :symbols => ""}
+    symbols_ticker = []
+
+    unless stocks.nil?
       quotes = Stockery::Quote.new
 
-      symbols.each do |symbol|
-        quote_data = quotes.get_status(symbol)
+      stocks.each do |stock|
+        quote_data = quotes.get_status(stock.symbol)
 
         result[:avg] += quote_data[:change_procent].to_f
-        result[:symbols] << quote_data #.delete(:timestamp)
+        symbols_ticker << "#{quote_data[:name]} #{quote_data[:change_procent]}%" #.delete(:timestamp)
       end
-      
+
+      result[:symbols] = symbols_ticker.join(" - ")
+      result[:avg] = sprintf("%0.02f", result[:avg])
     end
    
     render result.to_json

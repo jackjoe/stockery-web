@@ -1,7 +1,7 @@
 source :rubygems
 
 gem 'cramp'
-
+gem 'slim'
 gem 'stockery'
 
 # Async webserver for running a cramp application
@@ -12,6 +12,10 @@ gem 'http_router'
 
 # Collection of async-proof rack middlewares - https://github.com/rkh/async-rack.git
 gem 'async-rack'
+
+gem 'mongo_mapper'
+gem 'mongo', '1.4.0'
+gem 'bson_ext', '1.4.0'
 
 # For async Active Record models
 # gem 'mysql2', '~> 0.2.11'
