@@ -1,0 +1,10 @@
+%h1 Create your portfolio
+
+= form_for :portfolio, :url => portfolios_path, :html => {:method => :post} do |form|
+  = form.label :name
+  = form.text_field :name
+
+  = form.label :email
+  = form.text_field :email
+
+  = form.submit "Create portfolio"

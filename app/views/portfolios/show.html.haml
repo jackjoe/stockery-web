@@ -1,0 +1,14 @@
+%h1= "Portfolio '#{@port.name}'"
+
+= @port.name
+%br
+= @port.email
+%br
+
+%ul
+  - @port.stocks.each do |stock|
+    %li
+      = stock.name
+      = stock.symbol
+
+= link_to "Edit portfolio", edit_portfolio_path(@port.name)

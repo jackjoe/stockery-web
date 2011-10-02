@@ -1,0 +1,13 @@
+%h1= "Edit portfolio '#{@port.name}'"
+
+= form_for @port, :url => portfolio_path(@port.name) do |form|
+  = form.label :name
+  = form.text_field :name
+
+  = form.label :email
+  = form.text_field :email
+ 
+  %div#stocks
+    = render :partial => 'stock', :collection => @port.stocks
+
+  = form.submit "Save portfolio"

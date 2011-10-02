@@ -1,0 +1,15 @@
+development: &dev_db
+  adapter: mongodb
+  host: staff.mongohq.com
+  database: stockery-arduino
+  port: 10052
+  user: user
+  password: user 
+
+test:
+  <<: *dev_db
+  database: stockery-arduino-test
+  port: 10084
+
+production:
+  <<: *dev_db

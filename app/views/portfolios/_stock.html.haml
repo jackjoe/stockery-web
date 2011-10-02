@@ -1,0 +1,7 @@
+%div#stock_item
+  = fields_for 'portfolio[stocks]', stock, :index => nil do |f|
+    = f.label :name
+    = f.text_field :name
+
+    = f.label :symbol
+    = f.text_field :symbol
