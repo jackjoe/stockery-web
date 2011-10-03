@@ -1,6 +1,6 @@
 %h1= "Portfolio '#{@port.name}'"
 
-%h3 Portfolio information
+%h4 Portfolio information
 = @port.name
 %br
 = @port.email
@@ -8,12 +8,19 @@
 %br
 %br
 
-%h3 Stocks included in the portfolio
-%ul
-  - @port.stocks.each do |stock|
-    %li
-      = stock.name
-      = stock.symbol
+%h4 Stocks included in the portfolio
+%table.zebra-striped.stocks
+  %thead
+    %tr
+      %td #
+      %td Stock symbol
+      %td Stock name (optional)
+  %tbody
+    - @port.stocks.each_with_index do |stock, index|
+      %tr
+        %td= index
+        %td= stock.symbol
+        %td= stock.name
 
 = link_to "Edit portfolio", edit_portfolio_path(@port.name), :class => 'btn info small'
-%a{:href => "#{portfolio_url(@port.name)}.json", :class => 'btn small'} See json output
+%a{:href => "#{portfolio_url(@port.name)}.json", :class => 'btn small', :id => 'json-link', 'data-content' => 'Use this link in your application', :title => 'JSON output format'} JSON output

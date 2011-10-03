@@ -9,4 +9,9 @@
   %body
   
   .container
+    - flash.each do |key, value|
+      %div{:class => "alert-message block-message #{key}", 'data-alert' => 'alert'}
+        %a{:href => '#', :class => 'close'} x
+        = value
+
     = yield

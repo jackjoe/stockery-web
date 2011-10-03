@@ -16,8 +16,9 @@
       %legend Add stock symbols
       %br
       = render :partial => 'stock', :collection => @port.stocks
-      .actions
-        = link_to 'Add another stock symbol', root_path, :class => 'btn small info'
+
+    .actions
+      = add_extra_stock_link 'Add another stock symbol', :class => 'btn info small'
     
     .actions
       = form.submit "Save portfolio", :class => 'btn large primary'

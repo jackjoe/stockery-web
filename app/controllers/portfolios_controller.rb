@@ -17,7 +17,7 @@ class PortfoliosController < ApplicationController
         end
       end
     else
-      redirect_to root_path
+      redirect_to root_path, :notice => 'The portfolio you requested did not exist.'
     end
   end
 
@@ -25,9 +25,11 @@ class PortfoliosController < ApplicationController
     @port = Portfolio.new(params[:portfolio])
 
     if @port.save
-      redirect_to edit_portfolio_path(@port[:name])
+      redirect_to edit_portfolio_path(@port[:name]), :notice => 'Portfolio created with success.'
     else
       @title = 'Home'
+
+      flash.now[:error] = 'Error creating the portfolio.'
       
       render 'pages/home'
     end
@@ -39,11 +41,13 @@ class PortfoliosController < ApplicationController
     has_stocks = !params[:portfolio][:stocks].nil? && params[:portfolio][:stocks].size > 0
 
     if has_stocks && @port.update_attributes(params[:portfolio])
-      redirect_to portfolio_path(@port.name)
+      redirect_to portfolio_path(@port.name), :notice => 'Portfolio updated with success.'
     else
       # TODO I don't want to reset name to name_was ... 
       params[:portfolio][:name] = params[:id]
       @port.name = params[:id]
+
+      flash.now[:error] = 'Error updating the portfolio.'
 
       render 'edit'
     end 
