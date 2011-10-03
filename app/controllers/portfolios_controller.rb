@@ -25,7 +25,7 @@ class PortfoliosController < ApplicationController
     @port = Portfolio.new(params[:portfolio])
 
     if @port.save
-      redirect_to edit_portfolio_path(@port[:name]), :notice => 'Portfolio created with success.'
+      redirect_to edit_portfolio_path(@port[:name]), :success => 'Portfolio created with success.'
     else
       @title = 'Home'
 
@@ -60,7 +60,6 @@ class PortfoliosController < ApplicationController
     @title = 'Edit Portfolio'
     
     @port = Portfolio.find_by_name(params[:id])
-
     @port.stocks.build  
   end
 

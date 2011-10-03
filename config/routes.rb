@@ -1,9 +1,7 @@
 StockeryArduino::Application.routes.draw do
-  
   resources :portfolios
 
   root :to => 'pages#home'
-  get "pages/home"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

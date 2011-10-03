@@ -3,6 +3,9 @@ require 'spork'
 Spork.prefork do
   # This file is copied to spec/ when you run 'rails generate rspec:install'
   ENV["RAILS_ENV"] ||= 'test'
+
+  ENV["RAILS_ENV"] = 'test'
+
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
 
@@ -38,12 +41,6 @@ Spork.prefork do
 
     config.after(:each) do
       DatabaseCleaner.clean
-
-      # MongoMapper.database.collections.each do |collection|
-      #   unless collection.name.match(/^system\./)
-      #     collection.remove
-      #   end
-      # end
     end
   end
 end
