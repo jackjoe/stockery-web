@@ -13,7 +13,7 @@ class PortfoliosController < ApplicationController
         )}
 
         format.html do
-          @title = "Portfolio #{@port.name}"
+          @title = "Portfolio '#{@port.name}'"
         end
       end
     else

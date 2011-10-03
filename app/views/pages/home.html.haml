@@ -1,10 +1,16 @@
 %h1 Create your portfolio
 
 = form_for :portfolio, :url => portfolios_path, :html => {:method => :post} do |form|
-  = form.label :name
-  = form.text_field :name
-
-  = form.label :email
-  = form.text_field :email
-
-  = form.submit "Create portfolio"
+  %fieldset
+    .clearfix
+      = form.label :name
+      .input
+        = form.text_field :name, :class => 'xlarge'
+    
+    .clearfix
+      = form.label :email
+      .input
+        = form.text_field :email, :class => 'xlarge'
+    
+    .actions
+      = form.submit "Create portfolio", :class => 'btn large primary'
