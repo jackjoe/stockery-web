@@ -31,18 +31,22 @@ group :development do
 end
 
 group :test, :development do
-   
+  gem 'rspec-rails'
 end
 
 group :test do
   gem 'turn', :require => false
-  gem 'factory_girl_rails', '~> 1.2'
-  gem 'rspec-rails'
-  gem 'webrat'
+
   gem 'spork'
+  gem 'guard-spork'
+
+  gem 'webrat'
+  gem 'factory_girl_rails', '~> 1.2'
   gem 'database_cleaner'
+
   gem 'autotest'
   gem 'autotest-rails-pure'
   gem 'autotest-fsevent'
   gem 'autotest-growl'
+  gem 'rb-fsevent'
 end

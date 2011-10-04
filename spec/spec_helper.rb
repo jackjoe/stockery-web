@@ -30,6 +30,7 @@ Spork.prefork do
     # examples within a transaction, remove the following line or assign false
     # instead of true.
     # config.use_transactional_fixtures = true
+
     config.before(:suite) do
       DatabaseCleaner.strategy = :truncation
       DatabaseCleaner.clean_with(:truncation)
@@ -39,9 +40,9 @@ Spork.prefork do
       DatabaseCleaner.start
     end
 
-    config.after(:each) do
-      DatabaseCleaner.clean
-    end
+    # config.after(:each) do
+    #   DatabaseCleaner.clean
+    # end
   end
 end
 
