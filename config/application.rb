@@ -48,5 +48,8 @@ module StockeryArduino
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.action_mailer.delivery_method   = :postmark
+    config.action_mailer.postmark_settings = { :api_key => "632a2c91-4195-49ac-b2ea-5999e8db465a" }
   end
 end
