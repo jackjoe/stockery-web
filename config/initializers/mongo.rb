@@ -1,5 +1,6 @@
-if Rails.env.production? && ENV['MONGOHQ_URL']
+if Rails.env.production? && ENV['MONGOHQ_URL'] # heroku
   MongoMapper.config = {Rails.env => {:uri => ENV['MONGOHQ_URL']}}
+  p MongoMapper.config[Rails.env]
   p MongoMapper.config
   MongoMapper.connect(Rails.env)
 else
@@ -9,10 +10,4 @@ else
   MongoMapper.connection.add_auth(db_config['database'], db_config['user'], db_config['password'])
 
   MongoMapper.database = db_config['database']
-end
-
-if defined?(PhusionPassenger)
-   PhusionPassenger.on_event(:starting_worker_process) do |forked|
-     MongoMapper.connection.connect if forked
-   end
 end
