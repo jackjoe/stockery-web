@@ -1,7 +1,7 @@
-if Rails.env.production?
-  MongoMapper.config = {Rails.env => {:uri => ENV['MONGOHQ_URL']}}
-  MongoMapper.connect(Rails.env)
-else
+# if Rails.env.production?
+#   MongoMapper.config = {Rails.env => {:uri => ENV['MONGOHQ_URL']}}
+#   MongoMapper.connect(Rails.env)
+# else
   db_config = YAML::load(File.read("#{Rails.root}/config/database.yml"))[Rails.env]
 
   p db_config
@@ -10,7 +10,7 @@ else
   MongoMapper.connection.add_auth(db_config['database'], db_config['user'], db_config['password'])
 
   MongoMapper.database = db_config['database']
-end
+# end
 
 if defined?(PhusionPassenger)
    PhusionPassenger.on_event(:starting_worker_process) do |forked|
