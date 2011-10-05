@@ -15,12 +15,5 @@ describe PagesController do
 
       response.should have_selector('title', :content => 'Home | Stockery - Arduino Portfolio Manager')
     end
-
-    # it "contain portfolio form" do
-    #   get 'home'
-
-    #   response.should have_selector('form')
-    # end
   end
-
 end

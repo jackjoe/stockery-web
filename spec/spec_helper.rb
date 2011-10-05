@@ -2,8 +2,7 @@ require 'spork'
 
 Spork.prefork do
   # This file is copied to spec/ when you run 'rails generate rspec:install'
-  ENV["RAILS_ENV"] ||= 'test'
-
+  # ENV["RAILS_ENV"] ||= 'test'
   ENV["RAILS_ENV"] = 'test'
 
   require File.expand_path("../../config/environment", __FILE__)
@@ -40,11 +39,14 @@ Spork.prefork do
       DatabaseCleaner.start
     end
 
-    # config.after(:each) do
-    #   DatabaseCleaner.clean
-    # end
+    config.after(:each) do
+      DatabaseCleaner.clean
+    end
   end
 end
 
 Spork.each_run do
+  # load routes
+  load File.expand_path("../../config/routes.rb", __FILE__)
+
 end

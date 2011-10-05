@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.0'
+gem 'rack', '1.3.3'
 
 gem 'mongo_mapper'
 gem 'mongo', '1.4.0'
@@ -9,7 +10,6 @@ gem 'bson_ext', '1.4.0'
 gem 'stockery'
 
 gem 'haml-rails'
-
 gem 'postmark-rails'
 
 gem 'rails3-generators' # gives you generator for mongomapper
@@ -37,16 +37,13 @@ end
 group :test do
   gem 'turn', :require => false
 
-  gem 'spork'
-  gem 'guard-spork'
+  gem 'spork' # autoreload of spec
+  gem 'guard-spork' # does spork
+  gem 'guard-rspec' # does rspec
+  gem 'rb-fsevent' # used for guard
+  gem 'growl_notify' # nice notifications
 
   gem 'webrat'
   gem 'factory_girl_rails', '~> 1.2'
   gem 'database_cleaner'
-
-  gem 'autotest'
-  gem 'autotest-rails-pure'
-  gem 'autotest-fsevent'
-  gem 'autotest-growl'
-  gem 'rb-fsevent'
 end

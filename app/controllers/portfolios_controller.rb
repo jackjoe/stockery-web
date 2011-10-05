@@ -6,6 +6,7 @@ class PortfoliosController < ApplicationController
     unless @port.nil?
       respond_to do |format|
         format.json { render :json => @port.to_json(
+          :methods => :average, 
           :except => [:id], 
           :include => {
             :stocks => { :only => [:name, :symbol]}
@@ -25,6 +26,8 @@ class PortfoliosController < ApplicationController
     @port = Portfolio.new(params[:portfolio])
 
     if @port.save
+      PortfolioMailer.notify_creator(@port).deliver
+
       redirect_to edit_portfolio_path(@port[:name]), :success => 'Portfolio created with success.'
     else
       @title = 'Home'
@@ -41,7 +44,7 @@ class PortfoliosController < ApplicationController
     has_stocks = !params[:portfolio][:stocks].nil? && params[:portfolio][:stocks].size > 0
 
     if has_stocks && @port.update_attributes(params[:portfolio])
-      redirect_to portfolio_path(@port.name), :notice => 'Portfolio updated with success.'
+      redirect_to portfolio_path(@port.name), :success => 'Portfolio updated with success.'
     else
       # TODO I don't want to reset name to name_was ... 
       params[:portfolio][:name] = params[:id]

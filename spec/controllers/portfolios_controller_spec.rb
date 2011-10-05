@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe PortfoliosController do
+  render_views
 
   describe "POST 'create'" do
     describe "failure" do
@@ -8,7 +9,7 @@ describe PortfoliosController do
         @attr = {:name => '', :email => ''}
       end
 
-      it "not create an empty portfolio" do
+      it "can not create an empty portfolio" do
         lambda do
           post :create, :portfolio => @attr
         end.should_not change(Portfolio, :count)
@@ -20,16 +21,16 @@ describe PortfoliosController do
         @attr = {:name => 'pieter', :email => 'pieter@noort.be'}
       end
 
-      it "a portfolio" do
+      it "adds a portfolio which is valid" do
         lambda do
           post :create, :portfolio => @attr
         end.should change(Portfolio, :count)
       end
 
-      it "redirect to edit page" do
-        post :create, :portfolio => @attr
+      it "redirects to edit page when creating valid portfolio" do
+        post :create, :portfolio => @attr.merge(:name => 'pieter_new')
 
-        response.should redirect_to(edit_portfolio_path(@attr[:name]))
+        response.should redirect_to(edit_portfolio_path('pieter_new'))
       end
     end
   end
@@ -38,30 +39,30 @@ describe PortfoliosController do
     describe "failure" do
       before(:each) do
         @port_ori_attr = {:name => 'pieter', :email => 'pieter@noort.be'}
-        @port = Portfolio.create!(@port_ori_attr) 
+        @port = Portfolio.create(@port_ori_attr) 
         @port_attr = {:name => '', :email => ''}
         @stocks = [{name: 'Apple', symbol: 'AAPL'}, {name: 'KBC', symbol: 'BR.KBC'}]
       end
 
-      it "render edit page when given empty portfolio" do
+      it "renders and edit page when given empty portfolio" do
         put :update, :id => @port.name, :portfolio => @port_attr.merge(:stocks => @stocks)
 
         response.should render_template('edit') 
       end
 
-      it "not allow change of portfolio name" do
+      it "doesn't allow change of portfolio name" do
         put :update, :id => @port.name, :portfolio => @port_attr.merge(:name => 'nieuw', :email => 'pieter@noort.be', :stocks => @stocks)
 
         response.should render_template('edit')
       end
 
-      it "require at least 1 stock when given valid portfolio" do
+      it "requires at least 1 stock when given valid portfolio" do
         put :update, :id => @port.name, :portfolio => @port_attr.merge(:name => @port.name, :email => @port.email)
 
         response.should render_template('edit')
       end
       
-      it "require a valid stock" do
+      it "requires a valid stock" do
         put :update, :id => @port.name, :portfolio => @port_ori_attr.merge(:stocks => [{name: '', symbol: ''}])
         
         response.should render_template('edit')  
@@ -70,40 +71,42 @@ describe PortfoliosController do
 
     describe "success" do
       before(:each) do
-        @port = Portfolio.create!({:name => 'pieter', :email => 'pieter@noort.be'}) 
+        @port = Portfolio.create({:name => 'pieter', :email => 'pieter@noort.be'}) 
         @port_attr = {:name => 'pieter', :email => 'pieters@noort.be'}
         @stocks = [{name: 'Apple', symbol: 'AAPL'}, {name: 'KBC', symbol: 'BR.KBC'}]
       end
 
-      it "change portfolio email" do
+      it "changes portfolio email" do
         put :update, :id => @port.name, :portfolio => @port_attr.merge(:stocks => @stocks)
 
-        @port.reload
-        @port.name.should == @port_attr[:name]
-        @port.email.should == @port_attr[:email]
+        port = Portfolio.find_by_name(@port.name)
+
+        port.name.should == @port_attr[:name]
+        port.email.should == @port_attr[:email]
       end
 
-      it "render show page" do
+      it "renders show page" do
         put :update, :id => @port.name, :portfolio => @port_attr.merge(:stocks => @stocks)
 
         response.should redirect_to portfolio_path(@port.name)
       end
 
-      it "add all stocks" do
+      it "adds all stocks" do
         put :update, :id => @port.name, :portfolio => @port_attr.merge(:stocks => @stocks)
         
-        @port.reload
-        @port.stocks.size == @stocks.size
+        port = Portfolio.find_by_name(@port.name)
+
+        port.stocks.size == @stocks.size
       end
     end
   end
 
   describe "GET 'edit'" do
     before(:each) do
-      @port = Portfolio.create!({:name => 'pieter', :email => 'pieter@noort.be'}) 
+      @port = Portfolio.create({:name => 'pieter', :email => 'pieter@noort.be'}) 
     end
 
-    it "be successful" do
+    it "is successful" do
       get 'edit', :id => @port.name
 
       response.should be_success
@@ -112,16 +115,16 @@ describe PortfoliosController do
 
   describe "GET 'show'" do
     before(:each) do
-      @port = Portfolio.create!({:name => 'pieter', :email => 'pieter@noort.be'}) 
+      @port = Portfolio.create({:name => 'pieter', :email => 'pieter@noort.be'}) 
     end
 
-    it "be successful" do
+    it "is successful" do
       get 'show', :id => @port.name
 
       response.should be_success
     end
 
-    it "redirect to root when no or empty portfolio name is given" do
+    it "redirects to root when no or empty portfolio name is given" do
       get 'show', :id => @port.name + "-"
 
       response.should redirect_to(root_path)
