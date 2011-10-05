@@ -1,6 +1,7 @@
 if Rails.env.production?
   MongoMapper.config = {Rails.env => {:uri => ENV['MONGOHQ_URL']}}
   MongoMapper.connect(Rails.env)
+
   p MongoMapper
 else
   db_config = YAML::load(File.read("#{Rails.root}/config/database.yml"))[::Rails.env]
