@@ -1,4 +1,7 @@
-if Rails.env == 'production'
+p Rails.env
+p ENV
+
+if Rails.env.production?
   MongoMapper.config = {Rails.env => {:uri => ENV['MONGOHQ_URL']}}
   MongoMapper.connect(Rails.env)
 else
