@@ -3,6 +3,7 @@ if Rails.env.production?
   MongoMapper.connect(Rails.env)
 else
   db_config = YAML::load(File.read("#{Rails.root}/config/database.yml"))[Rails.env]
+
   p db_config
 
   MongoMapper.connection = Mongo::Connection.new(db_config['host'], db_config['port'])
