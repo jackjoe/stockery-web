@@ -42,11 +42,9 @@ group :test do
   gem 'guard-rspec' # does rspec
   gem 'guard-bundler' # does bundler
 
-  if RUBY_PLATFORM.downcase.include?("darwin")
-    gem 'rb-fsevent' # used for guard
-    # gem 'growl'
-    gem 'growl_notify' # nice notifications
-  end
+  gem 'rb-fsevent' # used for guard
+  # gem 'growl'
+  gem 'growl_notify' # nice notifications
 
   gem 'webrat'
   gem 'factory_girl_rails', '~> 1.2'
