@@ -28,9 +28,11 @@ describe PortfoliosController do
       end
 
       it "redirects to edit page when creating valid portfolio" do
-        post :create, :portfolio => @attr.merge(:name => 'pieter_new')
+        name = 'pieter_new'
 
-        response.should redirect_to(edit_portfolio_path('pieter_new'))
+        post :create, :portfolio => @attr.merge(:name => name)
+
+        response.should redirect_to(edit_portfolio_path(name))
       end
     end
   end

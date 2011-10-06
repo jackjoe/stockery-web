@@ -2,47 +2,50 @@ require 'spec_helper'
 
 describe Portfolio do
   before(:each) do
-    @attr = {:name => "Pieter", :email => "pieter@noort.be"}
   end
 
   it "create an instance given valid attributes" do
-    Portfolio.create(@attr)
+    lambda { port = Factory :portfolio }.should_not raise_error(MongoMapper::DocumentNotValid)
+
+    # port.should be_valid
   end
 
   it "requires a non-empty key 'name'" do
-    port = Portfolio.new(@attr.merge(:name => ''))
+    lambda { port = Factory :portfolio, :name => '' }.should raise_error(MongoMapper::DocumentNotValid)
 
-    port.should_not be_valid
+    # port.should_not be_valid
   end
 
   it "requires a non-empty key 'email'" do
-    port = Portfolio.new(@attr.merge(:email => ''))
+    lambda { port = Factory :portfolio, :email => '' }.should raise_error(MongoMapper::DocumentNotValid)
 
-    port.should_not be_valid
+    # port.should_not be_valid
   end
 
   it "requires a unique name" do
-    Portfolio.create(@attr)
+    port_first = Factory :portfolio
 
-    port = Portfolio.new(@attr.merge(:email => "test@valid.com"))
-    port.should_not be_valid
+    lambda { port = Factory :portfolio, :email => 'somethingvalid@vali.com', :name => port_first.name }.should raise_error(MongoMapper::DocumentNotValid)
+    # port.should_not be_valid
   end
 
   it "requires the same name when updating" do
-    port = Portfolio.create(@attr)
+    port = Factory :portfolio
 
-    port.name = 'new_name'
-    port.save
+    # port.name = 'new_name'
+    port.update_attributes(:name => 'new_name')
+    port.should_not be_valid
+
+    # lambda { port.update_attributes(:name => 'new_name') }.should raise_error(MongoMapper::DocumentNotValid)
 
     # port.should_not be_valid
-    pending "Make it work!"
   end 
 
   it "require a valid e-mail address" do
     addresses = %w[pieter@noort pieter pieter$$noort]
     addresses.each do |email|
-      port = Portfolio.new(@attr.merge(:email => email))
-      port.should_not be_valid
+      lambda { port = Factory :portfolio, :email => email }.should raise_error(MongoMapper::DocumentNotValid)
+      # port.should_not be_valid
     end
   end
 end

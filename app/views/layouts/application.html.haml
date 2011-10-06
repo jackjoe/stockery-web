@@ -9,6 +9,13 @@
   %body
   
   .container
+    %header
+      Stocks in a box
+      %br
+      %span 
+        powered by 
+        %a{:href => 'http://github.com/pierot/stockery'}= "Stockery"
+
     - flash.each do |key, value|
       %div{:class => "alert-message block-message #{key}", 'data-alert' => 'alert'}
         %a{:href => '#', :class => 'close'} x

@@ -1,15 +1,50 @@
 @import "app/assets/stylesheets/twitter_bootstrap/lib/bootstrap.less";
 
+@font-face {
+    font-family: 'SpeakOffc';
+    src: url('SpeakOffc.eot');
+    src: url('SpeakOffc.eot?#iefix') format('embedded-opentype'),
+         url('SpeakOffc.woff') format('woff'),
+         url('SpeakOffc.ttf') format('truetype'),
+         url('SpeakOffc.svg#Conv_SpeakOffc') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
   padding-top: 20px;
 }
 
-table.stocks {
-  width: 75%;
+h1, h2, h3, h4 {
+  font-family: 'SpeakOffc';
+}
 
-  thead {
-    td {
-      font-weight: bold;
+legend {
+  font-family: 'SpeakOffc';
+}
+
+.container {
+  header {
+    background: url(/assets/logo.png) no-repeat;
+    padding-top: 8px;
+    padding-left: 65px;
+    height: 65px - 8px;
+    margin-bottom: 30px;
+    font-size: 36px;
+    font-family: 'SpeakOffc';
+    
+    span {
+      font-size: 14px;
+    }
+  }
+
+  table.stocks {
+    width: 75%;
+
+    thead {
+      td {
+        font-weight: bold;
+      }
     }
   }
 }

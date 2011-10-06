@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+
+  %body
+
+    %h1 This is an overview of your portfolios
+
+    %ul
+      = @portfolios.each do |port|
+        %li
+          = link_to port.name, edit_portfolio_url(port.name, :host => @host)

@@ -26,7 +26,7 @@ class PortfoliosController < ApplicationController
     @port = Portfolio.new(params[:portfolio])
 
     if @port.save
-      PortfolioMailer.notify_creator(@port).deliver
+      PortfolioMailer.notify_creator(@port, edit_portfolio_url(@port.name)).deliver
 
       redirect_to edit_portfolio_path(@port[:name]), :success => 'Portfolio created with success.'
     else

@@ -8,6 +8,7 @@ describe Stock do
   it "belong to a portfolio" do
     port_stocks = Portfolio.new.stocks
     port_stocks << Stock.new
+
     port_stocks.should_not be_empty
   end 
 

@@ -14,3 +14,19 @@
     
     .actions
       = form.submit "Create portfolio", :class => 'btn large primary'
+
+%h2 Looking to edit an existing portfolio?
+
+%p 
+  Give us your e-mail address and we'll drop everything you need to know in your mailbox.
+
+= form_tag reminder_create_path, :method => :post do
+  %fieldset
+    .clearfix
+      = label_tag :email, 'E-mail'
+      .input
+        = text_field_tag 'email', '', :class => 'xnormal'
+
+    .actions
+      = submit_tag 'Send it over', :class => 'btn info'
+

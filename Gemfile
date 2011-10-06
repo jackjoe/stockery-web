@@ -40,8 +40,13 @@ group :test do
   gem 'spork' # autoreload of spec
   gem 'guard-spork' # does spork
   gem 'guard-rspec' # does rspec
-  gem 'rb-fsevent' # used for guard
-  gem 'growl_notify' # nice notifications
+  gem 'guard-bundler' # does bundler
+
+  if RUBY_PLATFORM.downcase.include?("darwin")
+    gem 'rb-fsevent' # used for guard
+    # gem 'growl'
+    gem 'growl_notify' # nice notifications
+  end
 
   gem 'webrat'
   gem 'factory_girl_rails', '~> 1.2'

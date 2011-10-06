@@ -13,7 +13,3 @@ test:
 
 production:
   <<: *dev_db
-  port: 10093
-  database: app1214616
-  user: heroku
-  password: 0d5b490776402b4ca42a79174e9b5e66

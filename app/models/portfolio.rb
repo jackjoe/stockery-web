@@ -6,7 +6,7 @@ class Portfolio
   key :name, String, :required => true, :unique => true
   key :email, String, :required => true, :format => /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-  validate :ensure_same_name #, :on => :update
+  validate :ensure_same_name, :on => :update
   validates_associated :stocks
 
   def average
