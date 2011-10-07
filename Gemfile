@@ -14,6 +14,10 @@ gem 'postmark-rails'
 
 gem 'rails3-generators' # gives you generator for mongomapper
 
+group :production do
+  gem 'thin'
+end
+
 group :assets do
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
