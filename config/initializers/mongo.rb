@@ -2,9 +2,9 @@ if Rails.env.production? && ENV['MONGOHQ_URL'] # heroku
   puts "Production mode with #{ENV['MONGOHQ_URL']}"
 
   MongoMapper.connection = Mongo::Connection.new('staff.mongohq.com', 10093)
-  MongoMapper.connection.add_auth('app1214616', 'heroku', '0d5b490776402b4ca42a79174e9b5e66')
+  MongoMapper.connection.add_auth('app1387310', 'heroku', 'ea7a9be90fe03c77afdb016efa753d25')
 
-  MongoMapper.database = 'app1214616'
+  MongoMapper.database = 'app1387310'
   
   # MongoMapper.config = {Rails.env => {:uri => ENV['MONGOHQ_URL']}}
   # MongoMapper.connect(Rails.env)
