@@ -7,8 +7,8 @@
 //= require jquery
 //= require jquery_ujs
 
-//= require ./../stylesheets/twitter_bootstrap/js/bootstrap-twipsy.js
-//= require ./../stylesheets/twitter_bootstrap/js/bootstrap-popover.js
-//= require ./../stylesheets/twitter_bootstrap/js/bootstrap-alerts.js
+//= require ./../stylesheets/bootstrap/js/bootstrap-twipsy.js
+//= require ./../stylesheets/bootstrap/js/bootstrap-popover.js
+//= require ./../stylesheets/bootstrap/js/bootstrap-alerts.js
 
 //= require_tree .
