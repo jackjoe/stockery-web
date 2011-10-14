@@ -36,6 +36,8 @@ end
 
 group :test, :development do
   gem 'rspec-rails'
+  gem 'rb-fsevent' # used for guard
+  gem 'growl_notify' # nice notifications
 end
 
 group :test do
@@ -45,10 +47,6 @@ group :test do
   gem 'guard-spork' # does spork
   gem 'guard-rspec' # does rspec
   gem 'guard-bundler' # does bundler
-
-  gem 'rb-fsevent' # used for guard
-  # gem 'growl'
-  gem 'growl_notify' # nice notifications
 
   gem 'webrat'
   gem 'factory_girl_rails', '~> 1.2'

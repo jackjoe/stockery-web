@@ -47,6 +47,5 @@ end
 
 Spork.each_run do
   # load routes
-  load File.expand_path("../../config/routes.rb", __FILE__)
-
+  require File.expand_path("../../config/routes", __FILE__)
 end
