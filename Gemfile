@@ -23,6 +23,7 @@ end
 group :assets do
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
+  gem 'yui-compressor'
   gem 'less'
 end
 
