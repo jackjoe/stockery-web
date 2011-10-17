@@ -43,6 +43,18 @@ class PortfoliosController < ApplicationController
     
     has_stocks = !params[:portfolio][:stocks].nil? && params[:portfolio][:stocks].size > 0
 
+    if has_stocks
+      stocks = []
+
+      params[:portfolio][:stocks].each do |stock|
+        stocks << stock unless stock[:symbol].blank?
+      end
+
+      params[:portfolio][:stocks] = stocks
+    end
+
+    has_stocks = !params[:portfolio][:stocks].nil? && params[:portfolio][:stocks].size > 0
+
     if has_stocks && @port.update_attributes(params[:portfolio])
       redirect_to portfolio_path(@port.url), :success => 'Portfolio updated with success.'
     else

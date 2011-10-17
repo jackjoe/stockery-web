@@ -41,31 +41,32 @@ describe PortfoliosController do
     describe "failure" do
       before(:each) do
         @port_ori_attr = {:name => 'pieter', :email => 'pieter@noort.be'}
-        @port = Portfolio.create(@port_ori_attr) 
+        @port = Factory :portfolio, :email => 'pieter@noort.be', :name => 'pieter'
+
         @port_attr = {:name => '', :email => ''}
         @stocks = [{name: 'Apple', symbol: 'AAPL'}, {name: 'KBC', symbol: 'BR.KBC'}]
       end
 
       it "renders and edit page when given empty portfolio" do
-        put :update, :id => @port.name, :portfolio => @port_attr.merge(:stocks => @stocks)
+        put :update, :id => @port.url, :portfolio => @port_attr.merge(:stocks => @stocks)
 
         response.should render_template('edit') 
       end
 
       it "doesn't allow change of portfolio name" do
-        put :update, :id => @port.name, :portfolio => @port_attr.merge(:name => 'nieuw', :email => 'pieter@noort.be', :stocks => @stocks)
+        put :update, :id => @port.url, :portfolio => @port_attr.merge(:name => 'nieuw', :email => 'pieter@noort.be', :stocks => @stocks)
 
         response.should render_template('edit')
       end
 
       it "requires at least 1 stock when given valid portfolio" do
-        put :update, :id => @port.name, :portfolio => @port_attr.merge(:name => @port.name, :email => @port.email)
+        put :update, :id => @port.url, :portfolio => @port_attr.merge(:name => @port.name, :email => @port.email)
 
         response.should render_template('edit')
       end
       
       it "requires a valid stock" do
-        put :update, :id => @port.name, :portfolio => @port_ori_attr.merge(:stocks => [{name: '', symbol: ''}])
+        put :update, :id => @port.url, :portfolio => @port_ori_attr.merge(:stocks => [{name: '', symbol: ''}])
         
         response.should render_template('edit')  
       end
@@ -73,9 +74,9 @@ describe PortfoliosController do
 
     describe "success" do
       before(:each) do
-        @port = Portfolio.create({:name => 'pieter', :email => 'pieter@noort.be'}) 
+        @port = Factory :portfolio, :email => 'pieter@noort.be', :name => 'pieter'
         @port_attr = {:name => 'pieter', :email => 'pieters@noort.be'}
-        @stocks = [{name: 'Apple', symbol: 'AAPL'}, {name: 'KBC', symbol: 'BR.KBC'}]
+        @stocks = [{:name => 'Apple', :symbol => 'AAPL'}, {:name => 'KBC', :symbol => 'BR.KBC'}]
       end
 
       it "changes portfolio email" do
@@ -98,7 +99,17 @@ describe PortfoliosController do
         
         port = Portfolio.find_by_url(@port.url)
 
-        port.stocks.size == @stocks.size
+        port.stocks.size.should == @stocks.size
+      end
+
+      it 'should ignore empty stock data' do
+        stocks = @stocks
+        stocks << {:name => '', :symbol => ''}
+
+        put :update, :id => @port.url, :portfolio => @port_attr.merge(:stocks => stocks)
+
+        # response.should_not render_template('edit') 
+        response.should redirect_to portfolio_path(@port.url)
       end
     end
   end
