@@ -28,11 +28,11 @@ describe PortfoliosController do
       end
 
       it "redirects to edit page when creating valid portfolio" do
-        name = 'pieter_new'
+        name = 'pieter new'
 
         post :create, :portfolio => @attr.merge(:name => name)
 
-        response.should redirect_to(edit_portfolio_path(name))
+        response.should redirect_to(edit_portfolio_path('pieter-new'))
       end
     end
   end
@@ -79,24 +79,24 @@ describe PortfoliosController do
       end
 
       it "changes portfolio email" do
-        put :update, :id => @port.name, :portfolio => @port_attr.merge(:stocks => @stocks)
+        put :update, :id => @port.url, :portfolio => @port_attr.merge(:stocks => @stocks)
 
-        port = Portfolio.find_by_name(@port.name)
+        port = Portfolio.find_by_url(@port.url)
 
         port.name.should == @port_attr[:name]
         port.email.should == @port_attr[:email]
       end
 
       it "renders show page" do
-        put :update, :id => @port.name, :portfolio => @port_attr.merge(:stocks => @stocks)
+        put :update, :id => @port.url, :portfolio => @port_attr.merge(:stocks => @stocks)
 
-        response.should redirect_to portfolio_path(@port.name)
+        response.should redirect_to portfolio_path(@port.url)
       end
 
       it "adds all stocks" do
-        put :update, :id => @port.name, :portfolio => @port_attr.merge(:stocks => @stocks)
+        put :update, :id => @port.url, :portfolio => @port_attr.merge(:stocks => @stocks)
         
-        port = Portfolio.find_by_name(@port.name)
+        port = Portfolio.find_by_url(@port.url)
 
         port.stocks.size == @stocks.size
       end
@@ -105,11 +105,11 @@ describe PortfoliosController do
 
   describe "GET 'edit'" do
     before(:each) do
-      @port = Portfolio.create({:name => 'pieter', :email => 'pieter@noort.be'}) 
+      @port = Factory :portfolio
     end
 
     it "is successful" do
-      get 'edit', :id => @port.name
+      get 'edit', :id => @port.url
 
       response.should be_success
     end
@@ -121,13 +121,13 @@ describe PortfoliosController do
     end
 
     it "is successful" do
-      get 'show', :id => @port.name
+      get 'show', :id => @port.url
 
       response.should be_success
     end
 
     it "redirects to root when no or empty portfolio name is given" do
-      get 'show', :id => @port.name + "-"
+      get 'show', :id => @port.url + "-"
 
       response.should redirect_to(root_path)
     end

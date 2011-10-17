@@ -1,6 +1,6 @@
 %h1= "Edit portfolio '#{@port.name}'"
 
-= form_for @port, :url => portfolio_path(@port.name) do |form|
+= form_for @port, :url => portfolio_path(@port.url) do |form|
   %fieldset
     .clearfix
       = form.label :name

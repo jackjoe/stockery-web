@@ -1,7 +1,7 @@
 class PortfoliosController < ApplicationController
 
   def show
-    @port = Portfolio.find_by_name(params[:id])
+    @port = Portfolio.find_by_url(params[:id])
 
     unless @port.nil?
       respond_to do |format|
@@ -26,9 +26,9 @@ class PortfoliosController < ApplicationController
     @port = Portfolio.new(params[:portfolio])
 
     if @port.save
-      PortfolioMailer.notify_creator(@port, edit_portfolio_url(@port.name)).deliver
+      PortfolioMailer.notify_creator(@port, edit_portfolio_url(@port.url)).deliver
 
-      redirect_to edit_portfolio_path(@port[:name]), :success => 'Portfolio created with success.'
+      redirect_to edit_portfolio_path(@port.url), :success => 'Portfolio created with success.'
     else
       @title = 'Home'
 
@@ -39,12 +39,12 @@ class PortfoliosController < ApplicationController
   end
 
   def update
-    @port = Portfolio.find_by_name(params[:id])
+    @port = Portfolio.find_by_url(params[:id])
     
     has_stocks = !params[:portfolio][:stocks].nil? && params[:portfolio][:stocks].size > 0
 
     if has_stocks && @port.update_attributes(params[:portfolio])
-      redirect_to portfolio_path(@port.name), :success => 'Portfolio updated with success.'
+      redirect_to portfolio_path(@port.url), :success => 'Portfolio updated with success.'
     else
       # TODO I don't want to reset name to name_was ... 
       params[:portfolio][:name] = params[:id]
@@ -62,7 +62,7 @@ class PortfoliosController < ApplicationController
   def edit
     @title = 'Edit Portfolio'
     
-    @port = Portfolio.find_by_name(params[:id])
+    @port = Portfolio.find_by_url(params[:id])
     @port.stocks.build  
   end
 

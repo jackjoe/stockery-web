@@ -8,7 +8,7 @@ describe PortfolioMailer do
 
   it "renders without errors" do
     lambda do
-      PortfolioMailer.notify_creator(@port, edit_portfolio_url(@port.name, :host => 'localhost'))
+      PortfolioMailer.notify_creator(@port, edit_portfolio_url(@port.url, :host => 'localhost'))
     end.should_not raise_error
   end
 end

@@ -9,6 +9,6 @@ describe 'portfolios/edit.html.haml' do
   end
 
   it 'should render a form to edit a portfolio' do
-    rendered.should have_selector('form', :action => portfolio_path(@port.name))
+    rendered.should have_selector('form', :action => portfolio_path(@port.url))
   end 
 end

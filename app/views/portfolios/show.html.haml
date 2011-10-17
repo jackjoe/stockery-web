@@ -22,5 +22,5 @@
         %td= stock.symbol
         %td= stock.name
 
-= link_to "Edit portfolio", edit_portfolio_path(@port.name), :class => 'btn info small'
-%a{:href => "#{portfolio_url(@port.name)}.json", :class => 'btn small', :id => 'json-link', 'data-content' => 'Use this link in your application', :title => 'JSON output format'} JSON output
+= link_to "Edit portfolio", edit_portfolio_path(@port.url), :class => 'btn info small'
+%a{:href => "#{portfolio_url(@port.url)}.json", :class => 'btn small', :id => 'json-link', 'data-content' => 'Use this link in your application', :title => 'JSON output format'} JSON output

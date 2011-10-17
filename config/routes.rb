@@ -1,6 +1,6 @@
 StockeryArduino::Application.routes.draw do
   match "reminder/thanks/:email" => "reminder#thanks", :as => 'reminder_thanks', :constraints => {:email => /[^\/]+/ }
-  post "reminder/create"
+  post  "reminder/create"
 
   resources :portfolios
 

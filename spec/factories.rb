@@ -4,7 +4,7 @@ FactoryGirl.define do
   end
 
   sequence :name do |n|
-    "portfolio-#{n}"
+    "portfolio #{n}"
   end
 
   factory :portfolio do

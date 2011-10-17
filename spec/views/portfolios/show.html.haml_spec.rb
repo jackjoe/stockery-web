@@ -9,6 +9,6 @@ describe 'portfolios/show.html.haml' do
   end
 
   it 'should have a link to a json path' do
-    rendered.should have_selector('a#json-link', :href => "#{portfolio_url(@port.name)}.json")
+    rendered.should have_selector('a#json-link', :href => "#{portfolio_url(@port.url)}.json")
   end 
 end

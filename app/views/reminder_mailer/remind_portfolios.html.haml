@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+
+  %body
+
+    %h1 This is an overview of your portfolios
+    
+    %ul
+      - @portfolios_list.each do |port|
+        %li
+          = link_to port[:name], port[:link]

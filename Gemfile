@@ -12,6 +12,8 @@ gem 'stockery'
 gem 'haml-rails'
 gem 'postmark-rails'
 
+gem 'stringex'
+
 gem 'rails3-generators' # gives you generator for mongomapper
 
 group :production do
@@ -51,4 +53,6 @@ group :test do
   gem 'webrat'
   gem 'factory_girl_rails', '~> 1.2'
   gem 'database_cleaner'
+
+  gem 'email_spec' # rspec email test matchers
 end

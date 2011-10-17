@@ -5,9 +5,16 @@ class Portfolio
 
   key :name, String, :required => true, :unique => true
   key :email, String, :required => true, :format => /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  key :url, String
 
   validate :ensure_same_name, :on => :update
   validates_associated :stocks
+
+  after_validation :create_url
+
+  def to_param
+    url
+  end
 
   def average
     average = 0
@@ -28,6 +35,10 @@ class Portfolio
   end
 
   private
+
+    def create_url
+      self.url = self.name.to_url if self.url.blank?
+    end
 
     def ensure_same_name
       if !name_was.nil? && name_was != name

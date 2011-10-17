@@ -1,7 +1,6 @@
 class ReminderMailer < ActionMailer::Base
-  def remind_portfolios(email, portfolios, host)
-    @portfolios = portfolios
-    @host = host
+  def remind_portfolios(email, portfolios)
+    @portfolios_list = portfolios
 
     mail(
       :subject  => 'Your portfolios',
