@@ -7,7 +7,7 @@ class PortfoliosController < ApplicationController
       respond_to do |format|
         format.json { render :json => @port.to_json(
           :methods => :average, 
-          :except => [:id], 
+          :except => [:id, :url], 
           :include => {
             :stocks => { :only => [:name, :symbol]}
           }

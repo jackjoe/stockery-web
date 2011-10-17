@@ -13,7 +13,7 @@
         = form.text_field :email, :class => 'xlarge'
    
     %div#stocks.clearfix
-      %legend Add stock symbols
+      %legend Add stock symbols (min 1 required)
       %br
       = render :partial => 'stock', :collection => @port.stocks
 
