@@ -12,6 +12,8 @@ gem 'stockery'
 gem 'haml-rails'
 gem 'postmark-rails'
 
+gem 'stringex'
+
 gem 'rails3-generators' # gives you generator for mongomapper
 
 group :assets do
