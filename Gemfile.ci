@@ -45,4 +45,6 @@ group :test do
   gem 'webrat'
   gem 'factory_girl_rails', '~> 1.2'
   gem 'database_cleaner'
+
+  gem 'email_spec' # rspec email test matchers
 end
