@@ -18,15 +18,32 @@ describe ReminderController do
 
     describe "success" do
       before(:each) do
-        Factory :portfolio, :email => 'pieter@noort.be'
+        @portfolios = []
+        @email = "pieter@noort.be"
 
-        @attr = {:email => 'pieter@noort.be'}
+        (1..5).each do
+          Factory :portfolio, :email => @email
+        end
+
+        ports = Portfolio.find_all_by_email(@email)
+
+        ports.each do |port|
+          @portfolios << {:name => port.name, :link => edit_portfolio_url(port.url, :host => request.host)} unless port.url.blank?
+        end
       end
 
       it "redirects to thanks page when sending existing e-mail address" do
-        post :create, @attr
+        post :create, :email => @email
 
-        response.should redirect_to reminder_thanks_path(@attr[:email])
+        response.should redirect_to reminder_thanks_path(@email)
+      end
+
+      it "sends out an email" do
+        mailer = mock
+        mailer.should_receive(:deliver)
+        ReminderMailer.should_receive(:remind_portfolios).and_return(mailer)
+
+        post :create, :email => @email
       end
     end
   end

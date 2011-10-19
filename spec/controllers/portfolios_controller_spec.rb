@@ -108,7 +108,6 @@ describe PortfoliosController do
 
         put :update, :id => @port.url, :portfolio => @port_attr.merge(:stocks => stocks)
 
-        # response.should_not render_template('edit') 
         response.should redirect_to portfolio_path(@port.url)
       end
     end

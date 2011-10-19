@@ -3,7 +3,7 @@ class ReminderMailer < ActionMailer::Base
     @portfolios_list = portfolios
 
     mail(
-      :subject  => 'Your portfolios',
+      :subject  => 'Your portfolios at Stockery Arduino',
       :to       => email,
       :from     => 'pieter@noort.be', 
       :tag      => 'remind_portfolios'
