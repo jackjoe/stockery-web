@@ -8,6 +8,10 @@ if Rails.env.production? && ENV['MONGOHQ_URL'] # heroku
   
   # MongoMapper.config = {Rails.env => {:uri => ENV['MONGOHQ_URL']}}
   # MongoMapper.connect(Rails.env)
+elsif ENV['TRAVIS']
+  MongoMapper.connection = Mongo::Connection.new('localhost')
+
+  MongoMapper.database = 'travis-stockery-arduino-app'
 else
   db_config = YAML::load(File.read("#{Rails.root}/config/database.yml"))[::Rails.env]
 
