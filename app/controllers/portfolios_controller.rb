@@ -40,10 +40,8 @@ class PortfoliosController < ApplicationController
 
   def update
     @port = Portfolio.find_by_url(params[:id])
-    
-    has_stocks = !params[:portfolio][:stocks].nil? && params[:portfolio][:stocks].size > 0
 
-    if has_stocks
+    if has_stocks?(params[:portfolio][:stocks])
       stocks = []
 
       params[:portfolio][:stocks].each do |stock|
@@ -53,9 +51,7 @@ class PortfoliosController < ApplicationController
       params[:portfolio][:stocks] = stocks
     end
 
-    has_stocks = !params[:portfolio][:stocks].nil? && params[:portfolio][:stocks].size > 0
-
-    if has_stocks && @port.update_attributes(params[:portfolio])
+    if has_stocks?(params[:portfolio][:stocks]) && @port.update_attributes(params[:portfolio])
       redirect_to portfolio_path(@port.url), :success => 'Portfolio updated with success.'
     else
       # TODO I don't want to reset name to name_was ... 
@@ -77,5 +73,11 @@ class PortfoliosController < ApplicationController
     @port = Portfolio.find_by_url(params[:id])
     @port.stocks.build  
   end
+
+  private
+
+    def has_stocks?(stocks)
+      !stocks.nil? && stocks.size > 0
+    end
 
 end
