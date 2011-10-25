@@ -1,5 +1,9 @@
-development: &dev_db
-  adapter: mongodb
+defaults: &defaults
+  host: 127.0.0.1
+  port: 27017
+
+development: &development
+  <<: *defaults
   host: staff.mongohq.com
   database: stockery-arduino
   port: 10052
@@ -7,9 +11,10 @@ development: &dev_db
   password: user 
 
 test:
-  <<: *dev_db
+  <<: *development
   database: stockery-arduino-test
   port: 10084
 
 production:
-  <<: *dev_db
+  <<: *defaults
+  uri: <%= ENV['MONGOHQ_URL'] %>
