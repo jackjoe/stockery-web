@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/basht/stocker-web.png)](http://travis-ci.org/basht/stocker-web)
+[![Build Status](https://secure.travis-ci.org/basht/stockery-web.png)](http://travis-ci.org/basht/stockery-web)
 
 Stockery-web
 ============
