@@ -16,6 +16,8 @@ gem 'stringex'
 
 gem 'rails3-generators' # gives you generator for mongomapper
 
+gem 'newrelic_rpm'
+
 group :production do
   gem 'thin'
 end
