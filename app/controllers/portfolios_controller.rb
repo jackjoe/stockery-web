@@ -32,7 +32,11 @@ class PortfoliosController < ApplicationController
     else
       @title = 'Home'
 
-      flash.now[:error] = 'Error creating the portfolio.'
+      errors = ''
+      
+      @port.errors.messages.each { |key, message| errors += "#{key.capitalize} #{message[0]}" }
+
+      flash.now[:error] = "Error creating the portfolio. #{errors}"
       
       render 'pages/home'
     end

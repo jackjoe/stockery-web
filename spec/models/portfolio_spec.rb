@@ -15,24 +15,19 @@ describe Portfolio do
   it "requires a non-empty key 'email'" do
     port = Factory.build :portfolio, :email => ''
     port.should_not be_valid
-
-    # lambda { port = Factory :portfolio, :email => '' }.should raise_error(MongoMapper::DocumentNotValid)
   end
 
   it "requires a unique name" do
     port_first = Factory :portfolio
 
-    lambda { port = Factory :portfolio, :email => 'somethingvalid@vali.com', :name => port_first.name }.should raise_error(MongoMapper::DocumentNotValid)
+    lambda { port = Factory :portfolio, :email => 'somethingvalid@vali.dom', :name => port_first.name }.should raise_error(MongoMapper::DocumentNotValid)
   end
 
   it "requires the same name when updating" do
     port = Factory :portfolio
 
-    # port.name = 'new_name'
     port.update_attributes(:name => 'new_name')
     port.should_not be_valid
-
-    # lambda { port.update_attributes(:name => 'new_name') }.should raise_error(MongoMapper::DocumentNotValid)
   end 
 
   it "require a valid e-mail address" do
